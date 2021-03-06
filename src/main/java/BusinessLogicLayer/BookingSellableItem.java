@@ -91,6 +91,10 @@ public class BookingSellableItem
     {      
         return GetBookingSellableItemsWithSelectStatement("SELECT * FROM BookingSellableItem WHERE SellableItemID="+sellableItemID);
     }
+    public List<BookingSellableItem> GetBookingSellableItemByBookingIDAndBySellableItemID(String sellableItemID, String bookingID) throws SQLException
+    {      
+        return GetBookingSellableItemsWithSelectStatement("SELECT * FROM BookingSellableItem WHERE SellableItemID="+sellableItemID+" AND BookingItemID="+bookingID);
+    }
     
     public boolean AddBookingItemLinkToDatabase() throws SQLException{
         DataHandler dataHandler = new DataHandler();

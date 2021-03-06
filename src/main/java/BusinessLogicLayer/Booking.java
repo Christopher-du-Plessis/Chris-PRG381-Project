@@ -34,6 +34,10 @@ public class Booking
     private double transportCost;
     private double labourCost;
     private boolean cancelled;
+
+    //public Booking(int userID, int i, String string, String string0, String text, java.sql.Date date, String text0, String text1, String text2, int i0, int i1, int nextBookingNum) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
     
     //alt + insert
 
@@ -200,6 +204,24 @@ public class Booking
         this.labourCost = labourCost;
         this.cancelled = cancelled;
     }
+    
+    public Booking(int userID, double budget, String type, String theme, String comments, Date eventDate, String venueAddress, String venueRegion, String venuecity, int numAdults, int numKids, int bookingNum) {
+        this.userID = userID;
+        this.budget = budget;
+        this.type = type;
+        this.theme = theme;
+        this.comments = comments;
+        this.eventDate = eventDate;
+        this.venueAddress = venueAddress;
+        this.venueRegion = venueRegion;
+        this.venuecity = venuecity;
+        this.numAdults = numAdults;
+        this.numKids = numKids;
+        this.bookingNum = bookingNum;
+        this.transportCost = 0;
+        this.labourCost = 0;
+        this.cancelled = false;
+    }
 
     public Booking() {
         
@@ -336,7 +358,7 @@ public class Booking
     public boolean AddToDatabase() throws SQLException{
         DataHandler dataHandler = new DataHandler();
         //Start from UserName since the database automatically increments the ClientID
-        String insertStatement = String.format("INSERT INTO Booking (UserID, Budget, Type, Theme, Comments, EventDate, VenueAddress, VenueRegion), VenueCity, NumAdults, NumKids, BookingNum, TransportPrice, LabourPrice, Cancelled VALUES(%d, %f,'%s','%s','%s','%tF','%s','%s','%s', %d, %d, %d, %f, %b)", userID, budget, type, theme, comments, eventDate, venueAddress, venueRegion, venuecity,numAdults,numKids,bookingNum,transportCost, labourCost, cancelled);
+        String insertStatement = String.format("INSERT INTO Booking (UserID, Budget, Type, Theme, Comments, EventDate, VenueAddress, VenueRegion, VenueCity, NumAdults, NumKids, BookingNum, TransportPrice, LabourPrice, Cancelled) VALUES(%d, %f,'%s','%s','%s','%tF','%s','%s','%s', %d, %d, %d, %f, %f, %b)", userID, budget, type, theme, comments, eventDate, venueAddress, venueRegion, venuecity,numAdults,numKids,bookingNum,transportCost, labourCost, cancelled);
         boolean querySuccessful = dataHandler.ExecuteNonQuery(insertStatement);
         if (querySuccessful) {
            return true; 
@@ -382,6 +404,15 @@ public class Booking
         }
   
     }
+     
+     public int GetNextBookingNum() throws SQLException{
+         //int largest =
+                 
+        DataHandler dataHandler = new DataHandler();
+        ResultSet rs = dataHandler.GetQueryResultSet("SELECT MAX(BookingNum) As MaxBookingNum FROM Booking");
+        rs.next();               
+        return rs.getInt("MaxBookingNum") + 1;
+     }
 
     // Kyle add code what you need
     public String  ValidDate()

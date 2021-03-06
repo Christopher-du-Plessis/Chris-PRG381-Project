@@ -36,7 +36,13 @@ public class Test {
         User userToLogin = userObj.GetUserByUserNameAndPassword("JohnSmith", "123");
         System.out.println(userToLogin.getFirstName());
         
+        int nextBookingNum;
+        Booking bookingObj = new Booking();
+        nextBookingNum = bookingObj.GetNextBookingNum();
+        System.out.println(nextBookingNum);
         
+        Booking booking = new Booking(1,0,"Type","THeme","COm",new Date(21,12,15),"A","B","C",12,4,1);
+        booking.AddToDatabase();
         //User clientToInsert =  new User("Admin","123",true,"Nick", "Morris", LocalDate.of(1990, Month.FEBRUARY, 24), "0735932363", "nick.morris@gmail.com","9002244626963");
         //boolean insertSuccesful = clientToInsert.TryAddToDatabase();
         //System.out.println(insertSuccesful);

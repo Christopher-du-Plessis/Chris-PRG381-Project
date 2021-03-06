@@ -43,6 +43,11 @@ public class Item_Booking extends javax.swing.JFrame {
         btn_Submit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         rb_Food.setText("Platters");
 
@@ -141,6 +146,11 @@ public class Item_Booking extends javax.swing.JFrame {
         
         //submits selection to database as a booking and then returns to main menu form
     }//GEN-LAST:event_btn_SubmitActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -5,8 +5,15 @@
  */
 package PresentationLayer;
 
-import BusinessLogicLayer.GlobalVariable;
-import java.sql.*;
+import BusinessLogicLayer.*;
+import java.time.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -73,6 +80,9 @@ public class Create_Booking extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txt_Address = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        ftxt_eventDate = new javax.swing.JFormattedTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -115,6 +125,18 @@ public class Create_Booking extends javax.swing.JFrame {
             }
         });
 
+        sp_Adults.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sp_AdultsStateChanged(evt);
+            }
+        });
+
+        sp_Kids.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sp_KidsStateChanged(evt);
+            }
+        });
+
         jLabel3.setText("Total People :");
 
         jLabel4.setText("Number of Adults");
@@ -126,11 +148,11 @@ public class Create_Booking extends javax.swing.JFrame {
 
         jLabel7.setText("Kind of Event :");
 
-        cb_EventType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_EventType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Birth Day Party", "Business Celebration", "Casual Party", "Funeral", "Religious Event", "Wedding", "Other", " " }));
 
         jLabel8.setText("Theme :");
 
-        cb_Theme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_Theme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Music", "Nautical", "None" }));
 
         jLabel9.setText("Region :");
 
@@ -144,30 +166,16 @@ public class Create_Booking extends javax.swing.JFrame {
 
         jLabel12.setText("Venue Address :");
 
+        jLabel13.setText("YYYY/MM/DD");
+
+        ftxt_eventDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy/MM/d"))));
+
+        jLabel14.setText("Event Date:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_TotalofPeople, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(sp_Kids, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                        .addComponent(sp_Adults, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_Create, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_Back)))
-                    .addComponent(txt_totalofpeople2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -186,7 +194,8 @@ public class Create_Booking extends javax.swing.JFrame {
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -201,6 +210,34 @@ public class Create_Booking extends javax.swing.JFrame {
                                     .addComponent(txt_City, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_TotalofPeople, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(sp_Kids, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                .addComponent(sp_Adults, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btn_Create, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_Back)))
+                            .addComponent(txt_totalofpeople2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(ftxt_eventDate))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,14 +281,18 @@ public class Create_Booking extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_Address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(btn_Back)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Create))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel12)))
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ftxt_eventDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(48, 48, 48)
+                .addComponent(btn_Back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Create)
                 .addContainerGap())
         );
 
@@ -268,13 +309,40 @@ public class Create_Booking extends javax.swing.JFrame {
 
     private void btn_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreateActionPerformed
         // TODO add your handling code here:
-        //Booking booking = new Booking();
+        Booking bookingObj = new Booking();
+        int nextBookingNum=0;
+        try {
+            nextBookingNum = bookingObj.GetNextBookingNum();
+        } catch (SQLException ex) {
+            Logger.getLogger(Create_Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Booking booking = new Booking(GlobalVariable.userID,(double)0,(String)cb_EventType.getSelectedItem(),(String)cb_Theme.getSelectedItem().toString(),"comment",(Date)ftxt_eventDate.getValue(),txt_Address.getText(),txt_Region.getText(),txt_City.getText(),(int)sp_Adults.getValue(),(int)sp_Kids.getValue(),nextBookingNum);
+        try {
+            booking.AddToDatabase();
+        } catch (SQLException ex) {
+            Logger.getLogger(Create_Booking.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btn_CreateActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txt_totalofpeople2.setText(String.format("%d",GlobalVariable.userID));
+        //txt_totalofpeople2.setText(String.format("%d",GlobalVariable.userID));
     }//GEN-LAST:event_formWindowOpened
+    
+    private void UpdatePeopleTotal(){
+        txt_totalofpeople2.setText(String.format("%s",(int)sp_Kids.getValue()+(int)sp_Adults.getValue()));
+    }
+    
+    private void sp_KidsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sp_KidsStateChanged
+        // TODO add your handling code here:
+        UpdatePeopleTotal();
+    }//GEN-LAST:event_sp_KidsStateChanged
+
+    private void sp_AdultsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sp_AdultsStateChanged
+        // TODO add your handling code here:
+        UpdatePeopleTotal();
+    }//GEN-LAST:event_sp_AdultsStateChanged
     
     
     
@@ -333,9 +401,12 @@ public class Create_Booking extends javax.swing.JFrame {
     private javax.swing.JButton btn_Create;
     private javax.swing.JComboBox<String> cb_EventType;
     private javax.swing.JComboBox<String> cb_Theme;
+    private javax.swing.JFormattedTextField ftxt_eventDate;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

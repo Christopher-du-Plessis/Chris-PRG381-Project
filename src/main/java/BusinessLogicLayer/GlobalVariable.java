@@ -11,4 +11,5 @@ package BusinessLogicLayer;
  */
 public class GlobalVariable {
     public static int userID;
+    public static int bookingID;
 }
