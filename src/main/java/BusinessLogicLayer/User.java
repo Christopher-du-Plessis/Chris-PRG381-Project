@@ -238,7 +238,7 @@ public class User
     }
     
     
-    private boolean UpdateInDataBase(){
+    public boolean UpdateInDataBase(){
         DataHandler dataHandler = new DataHandler();
         //Start from UserName since the database automatically increments the ClientID
         String insertStatement = String.format("UPDATE User SET UserName='%s',Password='%s',Admin=%b,FirstName='%s',LastName='%s',BirthDate='%tF',CellNum='%s',Email='%s',NationalID='%s' WHERE UserID=%d)", userName, password, admin, firstName, lastName, birthDate, cellNum, email, nationalID, userID);

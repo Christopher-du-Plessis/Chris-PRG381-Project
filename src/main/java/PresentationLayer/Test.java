@@ -17,15 +17,33 @@ public class Test {
     public static void main(String[] args) throws SQLException {
         //Example of how the Presentation will interact with the business layer, In this example we display the firstname of each client in the Client table in the DB
         User clientObj = new User();
-        List<User> clients = clientObj.GetUsers();
+        List<User> clients = new ArrayList<User>();
+        clients = clientObj.GetUsers();
         
         for (User cl:clients) {
             System.out.println(cl.getFirstName());
         }
         
-        //User clientToInsert =  new User("Nick", "Morris", LocalDate.of(1990, Month.FEBRUARY, 24), "0735932363", "nick.morris@gmail.com",
-                //"9002244626963");
+        User user = clientObj.GetUserByID(4);
+        if (user==null) {
+            System.out.println("Not found"); 
+        }
+        else{
+           System.out.println(user.getFirstName()); 
+        }
         
+        
+        //User clientToInsert =  new User("Admin","123",true,"Nick", "Morris", LocalDate.of(1990, Month.FEBRUARY, 24), "0735932363", "nick.morris@gmail.com","9002244626963");
+        //boolean insertSuccesful = clientToInsert.TryAddToDatabase();
+        //System.out.println(insertSuccesful);
+        
+        Booking b = new Booking();
+        int days = b.GetDaysBeforeBooking(1);
+        double price  = b.GetTotalPriceBooking(1);
+        double payments = b.GetTotalPaymentsMadeForBooking(1);
+        System.out.println(days);
+        System.out.println(price);
+        System.out.println(payments);
         //Example of updating a client in the database
         
         

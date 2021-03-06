@@ -109,7 +109,7 @@ public class SellableItem
         DataHandler dataHandler = new DataHandler();
         List<SellableItem> items = new ArrayList<SellableItem>();
         ResultSet rs = dataHandler.GetQueryResultSet(selectStatement);
-        if (rs.isBeforeFirst()) {
+        if (!rs.isBeforeFirst()) {
             return items;
         }
         else{
