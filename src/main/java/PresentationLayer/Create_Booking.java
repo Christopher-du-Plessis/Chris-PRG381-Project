@@ -5,6 +5,7 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.GlobalVariable;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -94,8 +95,18 @@ public class Create_Booking extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btn_Create.setText("Create");
+        btn_Create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CreateActionPerformed(evt);
+            }
+        });
 
         btn_Back.setText("Return to menu");
         btn_Back.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +265,16 @@ public class Create_Booking extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btn_BackActionPerformed
+
+    private void btn_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreateActionPerformed
+        // TODO add your handling code here:
+        //Booking booking = new Booking();
+    }//GEN-LAST:event_btn_CreateActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        txt_totalofpeople2.setText(String.format("%d",GlobalVariable.userID));
+    }//GEN-LAST:event_formWindowOpened
     
     
     

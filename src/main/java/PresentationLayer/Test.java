@@ -32,6 +32,10 @@ public class Test {
            System.out.println(user.getFirstName()); 
         }
         
+        User userObj = new User();
+        User userToLogin = userObj.GetUserByUserNameAndPassword("JohnSmith", "123");
+        System.out.println(userToLogin.getFirstName());
+        
         
         //User clientToInsert =  new User("Admin","123",true,"Nick", "Morris", LocalDate.of(1990, Month.FEBRUARY, 24), "0735932363", "nick.morris@gmail.com","9002244626963");
         //boolean insertSuccesful = clientToInsert.TryAddToDatabase();

@@ -5,7 +5,9 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.*;
 import java.sql.*;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 /**
@@ -131,7 +133,21 @@ public class Login_form extends javax.swing.JFrame {
         String password = txt_Password.getText();
         
         try {
-            String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
+            User userObj = new User();
+            User userToLogin = userObj.GetUserByUserNameAndPassword(username, password);
+            System.out.println(userToLogin);
+            if (!Objects.isNull(userToLogin)) {
+               txt_Username.setText(null);
+               txt_Password.setText(null);
+                
+                JOptionPane.showMessageDialog(null,"Login successfull welcome "+ username +"");
+                GlobalVariable.userID=userToLogin.getUserID();
+                Main_Menu cj = new Main_Menu();
+           
+                cj.setVisible(true);
+                dispose();
+            }
+            /*String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
             Class.forName(driver);
             Connection conn = DriverManager.getConnection("jdbc:ucanaccess://DeliciousCatering.accdb");
             String sql = "Select * from User where UserName=? and Password=?";
@@ -142,14 +158,12 @@ public class Login_form extends javax.swing.JFrame {
             rs.next();
             if (username.contains(rs.getString("UserName")) && password.contains(rs.getString("Password"))) 
             {
-                txt_Username.setText(null);
-                txt_Password.setText(null);
                 
-                JOptionPane.showMessageDialog(null,"Login successfull welcome "+ username +"");
                 Main_Menu cj = new Main_Menu();
+           
                 cj.setVisible(true);
                 dispose();
-            }
+            }*/
             
         } catch (Exception e) 
         {
