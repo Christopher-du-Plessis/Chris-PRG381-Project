@@ -201,7 +201,7 @@ public class User
     }
     
     public User GetUserByUserNameAndPassword(String userName, String password) throws SQLException{
-        List<User> usersReturned =  GetUsersWithSelectStatement(String.format("SELECT * FROM User WHERE UserName=%s AND Password=%s",userName,password));
+        List<User> usersReturned =  GetUsersWithSelectStatement(String.format("SELECT * FROM User WHERE UserName='%s' AND Password='%s'",userName,password));
         if (usersReturned.isEmpty()) {
             return  null; 
         }
