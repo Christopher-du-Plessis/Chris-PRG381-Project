@@ -414,28 +414,7 @@ public class Booking
         return rs.getInt("MaxBookingNum") + 1;
      }
 
-    // Kyle add code what you need
-    public String  ValidDate()
-    {
-        //???????????????????
-        Payment pay;
-        String Date1, Date2;
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-
-
-        //====
-        //HERE
-        //====
-        //if ((cancelled == false) && (pay.amount() == i))
-        {
-            Date1 = eventDate.toString();
-            Date2 = date.toString();
-
-            System.out.println(Date2);
-        }
-        return null;
-    }
+    
     
     
     
