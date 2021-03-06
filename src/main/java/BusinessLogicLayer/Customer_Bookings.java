@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BusinessLayer;
+package BusinessLogicLayer;
 
 /**
  *
- * @author Christopher
+ * @author Kyle Opperman
  */
-public class SellableItem {
+public class Customer_Bookings {
     
 }

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BusinessLayer;
+package BusinessLogicLayer;
 
 /**
  *
  * @author Christopher
  */
-public class Client {
-    
+public class GlobalVariable {
+    public static int userID;
+    public static int bookingID;
 }
