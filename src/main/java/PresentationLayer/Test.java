@@ -18,6 +18,7 @@ public class Test {
         //Example of how the Presentation will interact with the business layer, In this example we display the firstname of each client in the Client table in the DB
         User clientObj = new User();
         List<User> clients = clientObj.GetUsers();
+        
         for (User cl:clients) {
             System.out.println(cl.getFirstName());
         }
